@@ -2,13 +2,21 @@ import Navbar from '@/components/navbar'
 import Sidebar from '@/components/sidebar'
 import React from 'react'
 
-const HomeLayout = () => {
+const HomeLayout = ({children}) => {
   return (
-    <div className=' bg-dark-1 text-white'>
-        <Navbar/>
-        <Sidebar/>
-        HomeLayout
-    </div>
+    <main className=' relative text-white'>
+      <Navbar/>
+
+        <div className=' flex'>
+            <Sidebar/>
+
+            <section className=' flex min-h-screen flex-col p-8'>
+              <div className=' w-full'>
+                {children}
+              </div>
+            </section>
+        </div>
+    </main>
   )
 }
 
