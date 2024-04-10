@@ -10,7 +10,7 @@ const HomeLayout = ({children}) => {
         <div className=' flex'>
             <Sidebar/>
 
-            <section className=' flex min-h-screen flex-col p-8'>
+            <section className=' flex min-h-screen flex-1 flex-col p-8'>
               <div className=' w-full'>
                 {children}
               </div>
