@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import MobileNav from './mobilenav'
 import '@/app/globals.css'
+import { SignedIn} from '@clerk/nextjs'
+import {UserButton} from '@clerk/nextjs'
 const Navbar = () => {
   return (
     <>
@@ -21,7 +23,9 @@ const Navbar = () => {
               <p className=' text-[24px] font-extrabold max-sm:hidden'>Zoom</p>
 
               <div className='flex justify-between items-center '>
-                {/* Clerk User Mangement */}
+                <SignedIn>
+                  <UserButton/>
+                </SignedIn>
                 <MobileNav/>
               </div>
 
