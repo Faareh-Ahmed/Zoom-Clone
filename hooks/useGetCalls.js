@@ -63,13 +63,15 @@ export const useGetCalls=()=>{
 
     const endedCalls= calls.filter(({state: {startsAt, endedAt}})=>{
         return (
-            startsAt&& new Date(startsAt)<now || !!endedAt
+            // Ensures that the call has started and Ended Before Current Time OR if it has Some Ended Time
+            startsAt&& new Date(endedAt)<now || !!endedAt
         )
     })
 
-    const upcomingCalls= calls.filter(({state: {startsAt}})=>{
+    const upcomingCalls= calls.filter(({state: {startsAt,endedAt}})=>{
         return (
-            startsAt&& new Date(startsAt)>now 
+            // Ensures the calls has Starting Time > Current and Also has No Ended Time
+             new Date(startsAt)>now && !endedAt
         )
     })
 

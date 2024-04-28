@@ -96,49 +96,58 @@ const CallList = ({ type }) => {
     return (
         <div className=' grid grid-cols-1 gap-4 xl:grid-cols-2'>
 
-            {/* For the Recording type */}
-            {type === 'recordings' ? (
-                recordings && recordings.length > 0 ? (
-                    recordings.map((meeting) => (
-                        <MeetingCard
-                            key={meeting?.id}
-                            icon={type === 'ended' ? '/icons/previous.svg' : type === 'upcoming' ? 'icons/upcoming.svg' : 'icons/recordings.svg'}
-                            title={meeting.state?.custom.description.substring(0, 20) || meeting.filename.substring(0, 20) || "No description"}
-                            date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
-                            isPreviousMeeting={type === 'ended'}
-                            buttonIcon1={type === 'recordings' ? '/icons/play.svg' : undefined}
-                            buttonText={type === 'recordings' ? 'Play' : 'Start'}
-                            handleClick={type === 'recordings' ? () => router.push(`${meeting?.url}`) : () => router.push(`/meeting/${meeting?.id}`)}
-                            link={type === 'recordings' ? meeting?.url : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting?.id}`}
-                        />
-                    ))
-                ) : (
-                    <h1 className="text-2xl font-bold text-white">
-                        {noCallMessage}
-                    </h1>
-                )
+
+
+
+
+{type === 'recordings' && recordings.length > 0 ? (
+                recordings.map((meeting) => (
+                    <MeetingCard
+                        key={meeting?.id}
+                        icon={type === 'ended' ? '/icons/previous.svg' : type === 'upcoming' ? 'icons/upcoming.svg' : 'icons/recordings.svg'}
+                        title={meeting.state?.custom.description.substring(0, 20) || meeting.filename.substring(0, 20) || "No description"}
+                        date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
+                        isPreviousMeeting={type === 'ended'}
+                        buttonIcon1={type === 'recordings' ? '/icons/play.svg' : undefined}
+                        buttonText={type === 'recordings' ? 'Play' : 'Start'}
+                        handleClick={type === 'recordings' ? () => router.push(`${meeting?.url}`) : () => router.push(`/meeting/${meeting?.id}`)}
+                        link={type === 'recordings' ? meeting?.url : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting?.id}`}
+                    />
+                ))
+            ) : type === 'ended' && endedCalls.length > 0 ? (
+                endedCalls.map((meeting) => (
+                    <MeetingCard
+                        key={meeting?.id}
+                        icon={type === 'ended' ? '/icons/previous.svg' : type === 'upcoming' ? 'icons/upcoming.svg' : 'icons/recordings.svg'}
+                        title={meeting.state?.custom.description.substring(0, 20) || meeting.filename.substring(0, 20) || "No description"}
+                        date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
+                        isPreviousMeeting={type === 'ended'}
+                        buttonIcon1={type === 'recordings' ? '/icons/play.svg' : undefined}
+                        buttonText={type === 'recordings' ? 'Play' : 'Start'}
+                        handleClick={type === 'recordings' ? () => router.push(`${meeting?.url}`) : () => router.push(`/meeting/${meeting?.id}`)}
+                        link={type === 'recordings' ? meeting?.url : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting?.id}`}
+                    />
+                ))
+            ) : type === 'upcoming' && upcomingCalls.length > 0 ? (
+                upcomingCalls.map((meeting) => (
+                    <MeetingCard
+                        key={meeting?.id}
+                        icon={type === 'ended' ? '/icons/previous.svg' : type === 'upcoming' ? 'icons/upcoming.svg' : 'icons/recordings.svg'}
+                        title={meeting.state?.custom.description.substring(0, 20) || meeting.filename.substring(0, 20) || "No description"}
+                        date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
+                        isPreviousMeeting={type === 'ended'}
+                        buttonIcon1={type === 'recordings' ? '/icons/play.svg' : undefined}
+                        buttonText={type === 'recordings' ? 'Play' : 'Start'}
+                        handleClick={type === 'recordings' ? () => router.push(`${meeting?.url}`) : () => router.push(`/meeting/${meeting?.id}`)}
+                        link={type === 'recordings' ? meeting?.url : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting?.id}`}
+                    />
+                ))
             ) : (
-                // For the Upcoming and Ended Type
-                calls && calls.length > 0 ? (
-                    calls.map((meeting) => (
-                        <MeetingCard
-                            key={meeting?.id}
-                            icon={type === 'ended' ? '/icons/previous.svg' : type === 'upcoming' ? 'icons/upcoming.svg' : 'icons/recordings.svg'}
-                            title={meeting.state?.custom.description.substring(0, 20) || meeting.filename.substring(0, 20) || "No description"}
-                            date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
-                            isPreviousMeeting={type === 'ended'}
-                            buttonIcon1={type === 'recordings' ? '/icons/play.svg' : undefined}
-                            buttonText={type === 'recordings' ? 'Play' : 'Start'}
-                            handleClick={type === 'recordings' ? () => router.push(`${meeting?.url}`) : () => router.push(`/meeting/${meeting?.id}`)}
-                            link={type === 'recordings' ? meeting?.url : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting?.id}`}
-                        />
-                    ))
-                ) : (
-                    <h1 className="text-2xl font-bold text-white">
-                        {noCallMessage}
-                    </h1>
-                )
+                <h1 className="text-2xl font-bold text-white">{noCallMessage}</h1>
             )}
+
+            
+
 
 
 
