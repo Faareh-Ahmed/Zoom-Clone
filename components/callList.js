@@ -62,13 +62,15 @@ const CallList = ({type}) => {
             }
             try {
                 
-                const callData = await Promise.all(callRecordings?.map((meeting)=> meeting.queryRecordings));
+                const callData = await Promise.all(callRecordings?.map((meeting)=> meeting.queryRecordings()) ??[]);
+                console.log("Call Data: ",callData);
     
-                const recordings = callData.filter(call=> call && call.recordings && call.recordings.length>0).flatMap(call=>call.recordings);
+                const recordings = callData.filter((call) => call.recordings.length > 0)
+                .flatMap((call) => call.recordings);
     
                 console.log("Recordings",recordings);
                 setRecordings(recordings);
-                
+
             } catch (error) {
                 toast({title: 'Try Again Later'}    )
             }
@@ -80,6 +82,7 @@ const CallList = ({type}) => {
             console.log("Recording Clicked and fetching");
             fetchRecordings();
         }
+
         
     },[type,callRecordings])
 
@@ -88,10 +91,15 @@ const CallList = ({type}) => {
             <Loader/>
         )
     }
+
+    console.log("Recordings",recordings);
+
   return (
     <div className=' grid grid-cols-1 gap-4 xl:grid-cols-2'>
         {calls && calls.length>0 ? calls.map((meeting)=>(
-            // console.log("meetings: ",meeting),
+            console.log("meeting ID: ",meeting.id),
+            console.log("meeting Link", meeting.url),
+            
             <MeetingCard
             key={meeting?.id}
 
@@ -109,12 +117,12 @@ const CallList = ({type}) => {
             isPreviousMeeting= {type==='ended'}
             buttonIcon1= {type==='recordings' ? '/icons/play.svg' : undefined}
             buttonText= {type==='recordings' ? 'Play' : 'Start'}
-            handleClick= {type==='recordings' ? ()=>router.push(`${meeting.url}`) : ()=> router.push(`/meeting/${meeting.id}`)}
-            link= {type==='recordings' ? meeting.url: `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting.id}`}
+            handleClick= {type==='recordings' ? ()=>router.push(`${meeting?.url}`) : ()=> router.push(`/meeting/${meeting?.id}`)}
+            link= {type==='recordings' ? meeting?.url: `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting?.id}`}
  
             />
         )) : (
-            <h1>
+            <h1 className="text-2xl font-bold text-white">
                 {noCallMessage}                
             </h1>
         )}
