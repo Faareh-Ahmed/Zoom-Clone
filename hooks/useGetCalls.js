@@ -9,6 +9,7 @@ export const useGetCalls=()=>{
     const {user}=useUser();
 
 
+
     useEffect(()=>{
 
         const loadCalls=async()=>{
@@ -25,7 +26,7 @@ export const useGetCalls=()=>{
                     {
                         sort:[{field: 'starts_at', direction:-1}],
                         filter_conditions:{
-                            start_at:{$exists:true},
+                            starts_at:{$exists:true},
                             $or:[
                                 {
                                     created_by_user_id:user.id
@@ -38,7 +39,11 @@ export const useGetCalls=()=>{
                     }
                 )
 
+                console.log(calls);
+
+
                 setCalls(calls);
+
 
             } catch (error) {
                 console.log(error);
@@ -52,6 +57,7 @@ export const useGetCalls=()=>{
     },[client, user?.id]);
 
     // Logic to filter between the upcoming and endingcalls
+    console.log("inside hook: calls: ",calls);
 
     const now=new Date();
 
@@ -63,7 +69,7 @@ export const useGetCalls=()=>{
 
     const upcomingCalls= calls.filter(({state: {startsAt}})=>{
         return (
-            startsAt&& new Date(startsAt)<now 
+            startsAt&& new Date(startsAt)>now 
         )
     })
 
@@ -72,6 +78,7 @@ export const useGetCalls=()=>{
         upcomingCalls,
         callRecordings:calls,
         isLoading,
+
     }
 
 }
