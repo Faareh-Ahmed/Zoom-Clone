@@ -7,7 +7,7 @@ const HomeLayout = ({children}) => {
     <main className=' relative text-white'>
       <Navbar/>
 
-        <div className=' flex'>
+        <div className=' flex sticky top-16 pt-16'>
             <Sidebar/>
 
             <section className=' flex min-h-screen flex-1 flex-col p-8'>
