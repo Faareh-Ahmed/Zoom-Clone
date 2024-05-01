@@ -8,9 +8,9 @@ const Home = () => {
   const date = (new Intl.DateTimeFormat('en-US', { dateStyle: 'full' })).format(now);
   return (
     <section className=' flex flex-col gap-10 size-full' >
-      <div className=' bg-cover'>
+      <div className=' bg-cover h-1/4'>
         <Image
-          src='/images/hero-background.png'
+          src='/images/hero3.jpg'
           className=' w-full h-full'
           width={10000}
           height={10000}
